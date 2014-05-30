@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{6C849AF4-E28C-C752-9D4E-D72D0191EEF8}</ProjectGuid>
+	<ProjectGuid>{3D5D6966-3AE2-312A-EDF4-4E4CA1703F23}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -46,8 +46,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\back_button_pressed.cs" />
+     <Compile Include="Assets\Scripts\countdown.cs" />
      <Compile Include="Assets\Scripts\current_score.cs" />
      <Compile Include="Assets\Scripts\key_pressed.cs" />
+     <Compile Include="Assets\Scripts\move_button_pressed.cs" />
+     <Compile Include="Assets\Scripts\music_start.cs" />
      <Compile Include="Assets\Scripts\note.cs" />
      <Compile Include="Assets\Scripts\score.cs" />
   </ItemGroup>
