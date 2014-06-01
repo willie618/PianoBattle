@@ -12,7 +12,9 @@ public class countdown : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		t2 = Time.realtimeSinceStartup; 
+		t2 = Time.realtimeSinceStartup;
+
+		//second countdown
 		if (t2 - t1 >= 1.0f && t2 - t1 < 2.0f)
 			this.guiText.text = "2";
 		else if (t2 - t1 >= 2.0f && t2 - t1 < 3.0f)

@@ -14,6 +14,7 @@ public class score : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//determine which hitbox is tied to script
 		t1 = Time.realtimeSinceStartup; 
 		score_letter = this.name [6];
 		score_scale = this.name [7];
@@ -22,6 +23,7 @@ public class score : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//reset score marker feedback
 		t2 = Time.realtimeSinceStartup; 
 		if (t2 - t1 > 0.25f) {
 			GameObject.Find ("score_hit").renderer.enabled = false;
@@ -31,6 +33,7 @@ public class score : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
+		//initialize variables as waiting for key press on note enter
 		if (other.name == "note(Clone)") {
 			if (!GameObject.Find (key).GetComponent<key_pressed>().pressed)
 				note = true;
@@ -39,6 +42,7 @@ public class score : MonoBehaviour {
 	}
 
 	void OnTriggerStay2D(Collider2D other) {
+		//change variables for correct key press
 		if (note) {
 			if (GameObject.Find (key).GetComponent<key_pressed>().pressed) {
 				if (miss) {
@@ -51,6 +55,7 @@ public class score : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D other) {
+		//determine if key was missed on note exit
 		if (other.name == "note(Clone)") {
 			note = false;
 			if (miss) {

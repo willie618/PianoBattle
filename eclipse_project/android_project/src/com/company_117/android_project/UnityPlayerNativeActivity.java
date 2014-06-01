@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,45 +14,12 @@ public class UnityPlayerNativeActivity extends NativeActivity
 {
 	protected UnityPlayer mUnityPlayer;		// don't change the name of this variable; referenced from native code
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	public void mainMenu(View view) {
-		setContentView(R.layout.activity_main);
-	}	
-		
-	public void joinRoomMenu(View view) {
-		setContentView(R.layout.join_room);
-	}
-
-	public void playbackMenu(View view) {
-		setContentView(R.layout.playback);
-	}
-
-	public void profileMenu(View view) {
-		setContentView(R.layout.profile);
-	}
-
-	public void settingsMenu(View view) {
-		setContentView(R.layout.settings);
-	}	
-	
 	// UnityPlayer.init() should be called before attaching the view to a layout - it will load the native code.
 	// UnityPlayer.quit() should be the last thing called - it will unload the native code.
-	protected void createRoomMenu(View view)
+	protected void onCreate (Bundle savedInstanceState)
 	{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		//super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
 		
 		getWindow().takeSurface(null);
 		setTheme(android.R.style.Theme_NoTitleBar_Fullscreen);
@@ -72,7 +38,6 @@ public class UnityPlayerNativeActivity extends NativeActivity
 		setContentView(playerView);
 		playerView.requestFocus();
 	}
-	
 	protected void onDestroy ()
 	{
 		mUnityPlayer.quit();
