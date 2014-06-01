@@ -8,7 +8,6 @@ public class move_button_pressed : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//determine which button is tied to script
 		if (this.name == "right_button_pressed") {
 			move = 0.72f;
 		}
@@ -30,7 +29,6 @@ public class move_button_pressed : MonoBehaviour {
 			Vector2 touchPos = new Vector2(wp.x, wp.y);
 			if (collider2D == Physics2D.OverlapPoint(touchPos))	{
 				gameObject.renderer.enabled = true;
-				//move camera and HUD
 				if (!pressed) {
 					GameObject.Find ("camera").transform.Translate (move, 0f, 0f);
 					GameObject.Find ("bar_4").transform.Translate (move, 0f, 0f);

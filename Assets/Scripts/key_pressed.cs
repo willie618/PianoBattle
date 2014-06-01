@@ -5,6 +5,7 @@ public class key_pressed : MonoBehaviour {
 
 	public bool pressed = false;
 	float t1, t2;
+	const float total_time = 34.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -22,13 +23,8 @@ public class key_pressed : MonoBehaviour {
 				gameObject.renderer.enabled = true;
 				if (!pressed) {
 					audio.Play();
-					if (t2 - t1 >= 3.0f && t2 - t1 <= GameObject.Find ("music_start").GetComponent<music_start>().stop_time)
-						//wrong note penalty
+					if (t2 - t1 <= total_time && t2 - t1 >= 3.0f)
 						GameObject.Find ("current_score").GetComponent<current_score>().value -= 1;
-						
-						//record note
-						GameObject.Find ("record_start").GetComponent<record_start>().note = this.name[4];
-						GameObject.Find ("record_start").GetComponent<record_start>().scale = int.Parse(this.name.Substring (5,1));
 				}
 				pressed = true;
 			}

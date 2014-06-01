@@ -4,6 +4,7 @@ using System.Collections;
 public class back_button_pressed : MonoBehaviour {
 
 	float t1, t2;
+	const float total_time = 60.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +16,6 @@ public class back_button_pressed : MonoBehaviour {
 	void Update () {
 		t2 = Time.realtimeSinceStartup;
 
-		//phone back button
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			using (AndroidJavaClass cls_UnityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
 				using (AndroidJavaObject obj_Activity = cls_UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) { 
@@ -26,7 +26,7 @@ public class back_button_pressed : MonoBehaviour {
 			Application.Quit ();
 		}	
 
-		//touch screen back button
+
 		if (Input.touchCount == 1) {
 			Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 			Vector2 touchPos = new Vector2(wp.x, wp.y);
@@ -48,9 +48,8 @@ public class back_button_pressed : MonoBehaviour {
 			gameObject.renderer.enabled = false;
 		}
 
-		//forced time out
-//		if (t2 - t1 >= GameObject.Find ("music_start").GetComponent<music_start>().stop_time + 3.0f) {
+//		if (t2 - t1 >= total_time) {
 //			Application.Quit ();
-//		}
-	}
+		}
+//	}
 }
