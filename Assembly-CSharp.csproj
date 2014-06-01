@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\move_button_pressed.cs" />
      <Compile Include="Assets\Scripts\music_start.cs" />
      <Compile Include="Assets\Scripts\note.cs" />
+     <Compile Include="Assets\Scripts\record_start.cs" />
      <Compile Include="Assets\Scripts\score.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
