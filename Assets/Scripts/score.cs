@@ -15,7 +15,7 @@ public class score : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//determine which hitbox is tied to script
-		t1 = Time.realtimeSinceStartup; 
+		t1 = Time.time; 
 		score_letter = this.name [6];
 		score_scale = this.name [7];
 		key = "key_" + score_letter + score_scale;
@@ -24,11 +24,11 @@ public class score : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//reset score marker feedback
-		t2 = Time.realtimeSinceStartup; 
+		t2 = Time.time; 
 		if (t2 - t1 > 0.25f) {
 			GameObject.Find ("score_hit").renderer.enabled = false;
 			GameObject.Find ("score_miss").renderer.enabled = false;
-			t1 = Time.realtimeSinceStartup; 
+			t1 = Time.time; 
 		}
 	}
 
@@ -46,8 +46,9 @@ public class score : MonoBehaviour {
 		if (note) {
 			if (GameObject.Find (key).GetComponent<key_pressed>().pressed) {
 				if (miss) {
+					t1 = Time.time; 
+                    GameObject.Find ("score_hit").renderer.enabled = true;
 					GameObject.Find ("current_score").GetComponent<current_score>().value += HIT;
-					GameObject.Find ("score_hit").renderer.enabled = true;
 					miss = false;
 				}
 			}
@@ -59,7 +60,8 @@ public class score : MonoBehaviour {
 		if (other.name == "note(Clone)") {
 			note = false;
 			if (miss) {
-				GameObject.Find ("score_miss").renderer.enabled = true;
+				t1 = Time.time; 
+                GameObject.Find ("score_miss").renderer.enabled = true;
 				GameObject.Find ("current_score").GetComponent<current_score>().value -= PENALTY;
 			}
 		}

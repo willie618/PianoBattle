@@ -9,12 +9,12 @@ public class key_pressed : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameObject.renderer.enabled = false;
-		t1 = Time.realtimeSinceStartup; 
+		t1 = Time.time; 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		t2 = Time.realtimeSinceStartup;
+		t2 = Time.time;
 		if (Input.touchCount == 1)	{
 			Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 			Vector2 touchPos = new Vector2(wp.x, wp.y);

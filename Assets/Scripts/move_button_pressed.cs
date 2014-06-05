@@ -12,11 +12,17 @@ public class move_button_pressed : MonoBehaviour {
 		if (this.name == "right_button_pressed") {
 			move = 0.72f;
 		}
+		else if (this.name == "right_half_scale_button_pressed") {
+			move = 2.88f;
+		}
 		else if (this.name == "right_scale_button_pressed") {
 			move = 5.04f;
 		}
 		else if (this.name == "left_button_pressed") {
 			move = -0.72f;
+		}
+		else if (this.name == "left_half_scale_button_pressed") {
+			move = -2.88f;
 		}
 		else if (this.name == "left_scale_button_pressed") {
 			move = -5.04f;

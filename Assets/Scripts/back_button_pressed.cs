@@ -49,8 +49,8 @@ public class back_button_pressed : MonoBehaviour {
 		}
 
 		//forced time out
-//		if (t2 - t1 >= GameObject.Find ("music_start").GetComponent<music_start>().stop_time + 3.0f) {
-//			Application.Quit ();
-//		}
+		if (t2 - t1 >= GameObject.Find ("music_start").GetComponent<music_start>().stop_time + 4.0f) {
+			Application.Quit ();
+		}
 	}
 }

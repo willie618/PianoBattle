@@ -3,17 +3,20 @@ using System.Collections;
 
 public class note : MonoBehaviour {
 
-	const float tempo = 0.04f;
+    float speed;
+	float tempo;
 
 	// Use this for initialization
 	void Start () {
-	}
-	
-	// Update is called once per frame
+		tempo = GameObject.Find ("music_start").GetComponent<music_start> ().tempo;
+		speed = 0.04f * tempo / 60f;
+    }
+    
+    // Update is called once per frame
 	void Update () {
 		//falling notes
 		if (transform.position.y > -4)
-			transform.Translate (Vector2.up * -tempo);
+			transform.Translate (Vector2.up * -speed);
 		else
 			Destroy (this.gameObject);
 	}

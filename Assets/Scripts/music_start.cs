@@ -4,55 +4,54 @@ using System.Collections;
 public class music_start : MonoBehaviour {
 
 	public Rigidbody2D projectile;
+	public Rigidbody2D arrow;
+	public float stop_time;
+    public float tempo = 60f;
 	float t0, t1, t2;
 	string jingle_bells = "e3e3e3--e3e3e3--e3g3c3d3e3------f3f3f3f3f3e3e3e3e3d3d3e3d3--g3--e3e3e3--e3e3e3--e3g3c3d3e3------f3f3f3f3f3e3e3e3g3g3f3d3c3------";
 	string london_bridge = "d4e4d4c4b3c4d4--a3b3c4--b3c4d4--d4e4d4c4b3c4d4--a3--d4--b3g3--";
 	string happy_birthday = "g3g3a3--g3--c4--b3------g3g3a3--g3--d4--c4------g3g3g4--e4--c4--b3--a3--f4f4e4--c4--d4--c4--";
 	string mary_had_a_little_lamb = "A3G3F3G3A3A3A3--G3G3G3--A3C4C4--A3G3F3G3A3A3A3--G3G3A3G3F3------A3G3F3G3A3A3A3--G3G3G3--A3C4C4--A3G3F3G3A3A3A3--G3G3A3G3F3------";
-	string the_entertainer = "d5e5c5a4--b4g4--d4e4c4a3--b3g3--d3e3c3a2--b2a2G2g2--g3------d3D3e3c4--e3c4--e3c4--------c4d4D4e4c4d4e4--b3d4--c4----------d3D3e3c4--e3c4--e3c4--------a3g3F3a3c4e4--d4c4a3d4----------d3D3e3c4--e3c4--e3c4--------c4d4D4e4c4d4e4--b3d4--c4----------c4d4e4c4d4e4--c4d4c4e4c4d4e4--c4d4c4e4c4d4e4--b3d4--c4----------";
+	string the_entertainer = "d5e5c5a4--b4g4--d4e4c4a3--b3g3--d3e3c3a2--b2a2G2g2------g3--d3D3e3c4--e3c4--e3c4--------c4d4D4e4c4d4e4--b3d4--c4----------d3D3e3c4--e3c4--e3c4--------a3g3F3a3c4e4--d4c4a3d4----------d3D3e3c4--e3c4--e3c4--------c4d4D4e4c4d4e4--b3d4--c4----------c4d4e4c4d4e4--c4d4c4e4c4d4e4--c4d4c4e4c4d4e4--b3d4--c4----------";
 	string song_title;
 	string song;
 	float start_pos;
-	public float stop_time;
-	bool recording_mode;
+	public int mode = 0;	//0: battle, 1: recording, 2: playback
 
 	// Use this for initialization
 	void Start () {
-		t0 = Time.realtimeSinceStartup;
-		t1 = Time.realtimeSinceStartup;
+		t0 = Time.time;
+		t1 = Time.time;
 
-		recording_mode = GameObject.Find ("record_start").GetComponent<record_start> ().recording_mode;
-
-		//TODO split recording mode
-		if (!recording_mode)
-			song_title = "The Entertainer";
-		else
-			song_title = "";
+		song_title = "Jingle Bells";
+		song = "";
 
 		//determine song
-		if (song_title == "Jingle Bells") {
-			song = jingle_bells;
-			start_pos = 0.72f*0.0f;
-		}
-		else if (song_title == "London Bridge") {
-			song = london_bridge;
-			start_pos = 0.72f*3.0f;
-		}
-		else if (song_title == "Happy Birthday") {
-			song = happy_birthday;
-			start_pos = 0.72f*5.0f;
-		}
-		else if (song_title == "Mary Had a Little Lamb") {
-			song = mary_had_a_little_lamb;
-			start_pos = 0.72f*3.0f;
-		}
-		else if (song_title == "The Entertainer") {
-			song = the_entertainer;
-			start_pos = 0.72f*10.0f;
-		}
-		else {
-			song = "";
-			start_pos = 0.72f*0.0f;
+		if (mode == 0) {
+			if (song_title == "Jingle Bells") {
+				song = jingle_bells;
+				start_pos = 0.72f*0.0f;
+			}
+			else if (song_title == "London Bridge") {
+				song = london_bridge;
+				start_pos = 0.72f*3.0f;
+			}
+			else if (song_title == "Happy Birthday") {
+				song = happy_birthday;
+				start_pos = 0.72f*5.0f;
+			}
+			else if (song_title == "Mary Had a Little Lamb") {
+				song = mary_had_a_little_lamb;
+				start_pos = 0.72f*3.0f;
+			}
+			else if (song_title == "The Entertainer") {
+				song = the_entertainer;
+				start_pos = 0.72f*10.0f;
+			}
+			else {
+				song = "";
+				start_pos = 0.72f*0.0f;
+			}
 		}
 
 		//determine starting position
@@ -61,30 +60,28 @@ public class music_start : MonoBehaviour {
 		GameObject.Find ("score_marker").transform.Translate (start_pos, 0f, 0f);
 		GameObject.Find ("back_button").transform.Translate (start_pos, 0f, 0f);
 
-		//determine length of song
-		if (!recording_mode)
-			stop_time = 3.0f + 0.25f * song.Length + 3.0f;
+		if (mode == 0)
+			stop_time = (8.0f + song.Length/2f) * 60f/tempo;
 		else
-			stop_time = 6.0f + GameObject.Find ("record_start").GetComponent<record_start>().record_time * 2.0f + 3.0f;
+			stop_time = 0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		t2 = Time.realtimeSinceStartup;
+		t2 = Time.time;
 
 		//note properties
-		Rigidbody2D clone;
+		Rigidbody2D clone, clone2;
 		char note = '-';
 		float scale = 0f;
 		bool black_note = false;
 		Vector3 note_pos = new Vector3(0f, 0f, 0f);
 
-		//TODO split recording mode
-		if (!recording_mode ||
-		    t2 - t0 >= GameObject.Find ("record_start").GetComponent<record_start>().record_time + 6.0f) {
+		//battle or playback mode
+		if (mode != 1) {
 			
 			//time interval between each note
-			if (t2 - t1 > 0.5f) {
+			if (t2 - t1 > 60f/tempo) {
 				if (song != "") {
 					//determine next note
 					note = song[0];
@@ -145,14 +142,16 @@ public class music_start : MonoBehaviour {
 					if (note != '-') {
 						note_pos.x = note_pos.x + (scale-3.0f) * 5.04f;
 						clone = (Rigidbody2D)Instantiate(projectile, transform.position + note_pos, transform.rotation);
-						if (black_note)
+						clone2 = (Rigidbody2D)Instantiate(arrow, transform.position + note_pos, transform.rotation);
+                        if (black_note)
 							clone.transform.localScale -= (new Vector3(4f/3f, 0f, 0f));
 					}
-					t1 = Time.realtimeSinceStartup;
+					t1 = Time.time;
 				}
 			}
 		}
-		else if (recording_mode &&
+		//recording mode
+		else if (mode == 1 &&
 				 t2 - t0 > GameObject.Find ("record_start").GetComponent<record_start>().record_time + 3.0f &&
 		    	 t2 - t0 < GameObject.Find ("record_start").GetComponent<record_start>().record_time + 6.0f) {
 			song = GameObject.Find ("record_start").GetComponent<record_start>().recording;
